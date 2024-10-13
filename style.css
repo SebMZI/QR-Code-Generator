@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("./assets/bg-illustration.svg");
+  background-repeat: no-repeat;
+  background-position: 90%;
+  background-color: #111729;
+  font-family: "Outfit", sans-serif;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.url {
+  text-align: center;
+  width: 100%;
+}
+
+.url .logo {
+  width: 250px;
+  margin-bottom: 40px;
+}
+
+.url-form {
+  border: 2px solid #3662e3;
+  border-radius: 20px;
+  padding: 6px;
+  background: #030617;
+  max-width: 650px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+#url-input {
+  padding: 0px 20px;
+  outline: none;
+  font-size: 16px;
+  border-radius: 12px;
+  background-color: transparent;
+  border: none;
+  font-family: "Outfit", sans-serif;
+  color: #364153;
+  width: 75%;
+}
+
+#url-input::placeholder {
+  color: #364153;
+  font-size: 16px;
+}
+
+.url-submitbtn {
+  cursor: pointer;
+  display: inline-block;
+  height: 100%;
+  border: none;
+  background: #3662e3;
+  color: #fff;
+  font-size: 16px;
+  font-family: "Outfit", sans-serif;
+  padding: 15px 40px;
+  border-radius: 12px;
+}
