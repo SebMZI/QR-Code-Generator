@@ -15,6 +15,14 @@
   </head>
   <body>
     <main class="container">
+      <div class="alert-box"></div>
+      <header class="qr-header">
+        <img
+        src="./assets/logo-qr-generator.svg"
+        alt="QR Code Generator logo"
+        class="logo"
+      />
+      </header>
       <div class="url">
         <img
           src="./assets/logo-qr-generator.svg"
@@ -30,6 +38,14 @@
           />
           <button type="submit" class="url-submitbtn">QR code</button>
         </form>
+      </div>
+      <div id="qr-code__container">
+        <div class="qr-code__content-bg">
+          <div class="qr-code"></div>
+        </div>
+        <div class="qr-code__btns">
+          <button id="download-btn" class="btn">Download</button><button id="share-btn" class="btn">Share</button>
+        </div>
       </div>
     </main>
   </body>
