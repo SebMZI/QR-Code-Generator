@@ -18,9 +18,7 @@ urlInput.addEventListener("input", (e) => {
 window.addEventListener("submit", (e) => {
   e.preventDefault();
   if (urlToTransform.length < 1) {
-    alertBox.style.opacity = 1;
-    alertBox.style.transform = "translateY(0px)";
-    alertBox.innerHTML = "Please enter an URL!";
+    afficherAlerte("Please enter an URL", "error");
 
     setTimeout(() => {
       alertBox.style.opacity = 0;
@@ -35,49 +33,53 @@ window.addEventListener("submit", (e) => {
   }
 });
 
-downloadBtn.addEventListener("click", () => {
+downloadBtn.addEventListener("click", async () => {
   const qrCodeImage = qrCodeDiv.querySelector(".qr-code img");
 
-  if (qrCodeImage) {
-    const imgUrl = qrCodeImage.src;
-
-    fetch(imgUrl)
-      .then((response) => response.blob())
-      .then((blob) => {
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "qr-code.png";
-        link.click();
-      })
-      .catch((err) => console.error("Failed to get the img", err));
-  } else {
+  if (!qrCodeImage) {
     console.error("No qr code found");
+    return;
+  }
+
+  try {
+    const imgUrl = qrCodeImage.src;
+    const response = await fetch(imgUrl);
+    const blob = await response.blob();
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "qr-code.png";
+    link.click();
+  } catch (err) {
+    console.error("Error getting the qr code", err);
   }
 });
 
-shareBtn.addEventListener("click", () => {
-  const qrCodeImage = qrCodeDiv.querySelector(".qr-code img");
+shareBtn.addEventListener("click", async () => {
+  try {
+    const qrCodeImage = qrCodeDiv.querySelector(".qr-code img");
+    const blob = await fetch(qrCodeImage.src).then((response) =>
+      response.blob()
+    );
 
-  const imgUrl = qrCodeImage.src;
-  fetch(imgUrl)
-    .then((response) => response.blob())
-    .then((blob) => {
-      navigator.clipboard
-        .write([new ClipboardItem({ "image/png": blob })])
-        .catch((err) => {
-          console.error("Failed to copy the image to the clipboard:  ", err);
-        });
+    await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
 
-      alertBox.style.opacity = 1;
-      alertBox.style.transform = "translateY(0px)";
-      alertBox.style.color = "green";
-      alertBox.style.borderColor = "green";
-      alertBox.innerHTML = "Image copied to clipboard!";
-
-      setTimeout(() => {
-        alertBox.style.opacity = 0;
-        alertBox.style.transform = "translateY(-100px)";
-      }, 3000);
-    })
-    .catch((err) => console.error("Failed to get the image", err));
+    afficherAlerte("Copied successfully!", "success");
+  } catch (err) {
+    console.error("Error when copying to clipboard :", err);
+    afficherAlerte("Error when copying to clipboard", "error");
+  }
 });
+
+function afficherAlerte(message, type) {
+  alertBox.style.opacity = 1;
+  alertBox.style.transform = "translateY(0px)";
+  alertBox.style.color = type === "success" ? "green" : "red";
+  alertBox.style.borderColor = type === "success" ? "green" : "red";
+  alertBox.innerHTML = message;
+
+  setTimeout(() => {
+    alertBox.style.opacity = 0;
+    alertBox.style.transform = "translateY(-100px)";
+  }, 3000);
+}

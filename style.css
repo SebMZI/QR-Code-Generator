@@ -122,14 +122,14 @@ body {
 
 .qr-code__content-bg {
   background: #4e80ee33;
-  max-width: 375px;
-  width: 100%;
-  max-height: 375px;
+  width: 110%;
   height: 100%;
   border-radius: 50%;
   display: grid;
   place-content: center;
   margin-bottom: 64px;
+  position: relative;
+  left: -12px;
 }
 
 .qr-code {
@@ -139,6 +139,7 @@ body {
 }
 
 .qr-code__btns {
+  margin-top: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -179,10 +180,7 @@ body {
   #qr-code__container {
     padding: 20px;
   }
-  .qr-code__content-bg {
-    border-radius: 100px;
-    margin: 0 auto;
-  }
+
   .qr-code img {
     width: 200px;
     height: 200px;
